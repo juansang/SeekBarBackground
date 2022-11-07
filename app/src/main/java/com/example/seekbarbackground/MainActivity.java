@@ -1,6 +1,7 @@
 package com.example.seekbarbackground;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -19,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         this.seekBar = findViewById(R.id.seekbar);
-        this.seekBar.setMax(7);
+        this.seekBar.setMax(100);
         this.parentLayout = findViewById(R.id.relParent);
 
 
@@ -27,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         this.seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progressValue, boolean fromUser) {
-                setColor(progressValue);
+                setBackgroundColor(progressValue);
             }
 
             @Override
@@ -42,33 +43,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void setColor(int progressValue) {
+    public void setBackgroundColor(int progressValue) {
         int color = progressValue;
-        switch (color){
-            case 0 :
-                color = Color.WHITE;
-                break;
-            case 1 :
-                color = Color.YELLOW;
-                break;
-            case 2:
-                color = Color.RED;
-                break;
-            case 3 :
-                color = Color.MAGENTA;
-                break;
-            case 4:
-                color = Color.GREEN;
-                break;
-            case 5 :
-                color = Color.BLUE;
-                break;
-            case 6 :
-                color = Color.GRAY;
-                break;
-            case 7:
-                color=Color.BLACK;
-                break;
+        if(color>=0 && color<=33.3){
+            color = ContextCompat.getColor(this, R.color.yellow);
+        }else if(color>33.3 && color<=66.6){
+            color = ContextCompat.getColor(this, R.color.green);
+        }else if(color>66.6 && color<=100){
+            color = ContextCompat.getColor(this, R.color.blue);
         }
 
         this.parentLayout.setBackgroundColor(color);
